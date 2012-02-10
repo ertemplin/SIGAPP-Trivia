@@ -9,14 +9,40 @@ public class Question {
 	// Used to identify the question.
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	String key;
+	private String key;
 	
 	@Persistent
-	String question;
+	private String question;
 	
 	@Persistent
-	String correctAnswer;
+	private String correctAnswer;
 	
 	@Persistent
-	String[] incorrectAnswers;
+	private String[] incorrectAnswers;
+	
+	// YES, there is a reason that all of those are private, and accessed through getter and setter methods.
+	
+	public String getQuestion() {
+		return question;
+	}
+	
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
+	public String getCorrectAnswer() {
+		return correctAnswer;
+	}
+	
+	public void setCorrectAnswer(String correctAnswer) {
+		this.correctAnswer = correctAnswer;
+	}
+	
+	public String[] getIncorrectAnswers() {
+		return incorrectAnswers;
+	}
+	
+	public void setIncorrectAnswers(String[] incorrectAnswers) {
+		this.incorrectAnswers = incorrectAnswers;
+	}
 }
