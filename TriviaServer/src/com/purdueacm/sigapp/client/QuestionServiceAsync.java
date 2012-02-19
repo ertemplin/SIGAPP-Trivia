@@ -7,4 +7,6 @@ public interface QuestionServiceAsync {
 
 	void getAllQuestions(AsyncCallback<Question[]> callback);
 
+	void addQuestion(Question q, AsyncCallback<Void> callback);
+
 }

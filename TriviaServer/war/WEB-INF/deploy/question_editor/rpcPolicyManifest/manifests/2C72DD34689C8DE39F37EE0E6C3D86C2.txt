@@ -1,0 +1,2 @@
+serviceClass: com.purdueacm.sigapp.client.QuestionService
+path: 3D05A98B76E64E551306987DD721EB2D.gwt.rpc

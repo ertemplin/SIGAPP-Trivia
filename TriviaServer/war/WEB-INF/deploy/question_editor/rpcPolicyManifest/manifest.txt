@@ -1,2 +1,3 @@
 # Module question_editor
 # RPC service class, partial path of RPC policy file
+com.purdueacm.sigapp.client.QuestionService, 3D05A98B76E64E551306987DD721EB2D.gwt.rpc

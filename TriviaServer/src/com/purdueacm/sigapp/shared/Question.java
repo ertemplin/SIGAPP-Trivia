@@ -1,14 +1,20 @@
 package com.purdueacm.sigapp.shared;
 
+import java.io.Serializable;
+
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-public class Question {
+@PersistenceCapable
+public class Question implements Serializable {
 
 	// Used to identify the question.
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
 	private String key;
 	
 	@Persistent
@@ -20,7 +26,7 @@ public class Question {
 	@Persistent
 	private String[] incorrectAnswers;
 	
-	// YES, there is a reason that all of those are private, and accessed through getter and setter methods.
+	// YES, there is a reason that all of those are private, and accessed through getter and setter methods. 
 	
 	public String getQuestion() {
 		return question;
