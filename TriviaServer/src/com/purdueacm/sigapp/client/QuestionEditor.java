@@ -33,7 +33,7 @@ public class QuestionEditor implements EntryPoint {
 				// Get the (x,y) position of the bottom left corner of the button that was clicked.
 				Point dialogCorner = new Point(event.getRelativeElement().getAbsoluteLeft(), event.getRelativeElement().getAbsoluteBottom());
 				// Make the dialog and set its top left corner to the point created before this line.
-				makeNewQuestionDialog(true).setPopupPosition((int)dialogCorner.getX(), (int)dialogCorner.getY());
+				makeQuestionDialog(Question.createEmptyQuestion(),true).setPopupPosition((int)dialogCorner.getX(), (int)dialogCorner.getY());
 			}
 		});
 
@@ -43,12 +43,13 @@ public class QuestionEditor implements EntryPoint {
 	}
 	
 	/**
-	 * Creates a new DialogBox that will be used to create a new question.
+	 * Creates a new DialogBox that will be used to edit a question.
 	 * 
+	 * @param toEdit The question to be edited.
 	 * @param showOnCreate  If true, DialogBox shown when this method is called.
 	 * @return The newly created DialogBox.
 	 */
-	public DialogBox makeNewQuestionDialog(boolean showOnCreate) {
+	public DialogBox makeQuestionDialog(Question toEdit, boolean showOnCreate) {
 		final DialogBox box = new DialogBox(true, false);
 		box.setText("Add a new question!");
 		
@@ -65,6 +66,12 @@ public class QuestionEditor implements EntryPoint {
 		final TextBox incorrectAnswerText2 = new TextBox();
 		final TextBox incorrectAnswerText3 = new TextBox();
 		
+		// Set all the text fields to the value that the question already has.
+		questionText.setText(toEdit.getQuestion());
+		correctAnswerText.setText(toEdit.getCorrectAnswer());
+		incorrectAnswerText1.setText(toEdit.getIncorrectAnswers()[0]);
+		incorrectAnswerText2.setText(toEdit.getIncorrectAnswers()[1]);
+		incorrectAnswerText3.setText(toEdit.getIncorrectAnswers()[2]);
 
 		Button createQuestionButton = new Button("Add Question");
 		createQuestionButton.addClickHandler(new ClickHandler() {

@@ -51,4 +51,13 @@ public class Question implements Serializable {
 	public void setIncorrectAnswers(String[] incorrectAnswers) {
 		this.incorrectAnswers = incorrectAnswers;
 	}
+	
+	public static Question createEmptyQuestion() {
+		Question toReturn = new Question();
+		toReturn.question = "";
+		toReturn.correctAnswer = "";
+		String incorrect[] = {"", "", ""};
+		toReturn.incorrectAnswers = incorrect;
+		return toReturn;
+	}
 }
