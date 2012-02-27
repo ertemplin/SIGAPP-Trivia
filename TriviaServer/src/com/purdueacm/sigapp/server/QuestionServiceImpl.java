@@ -1,6 +1,9 @@
 package com.purdueacm.sigapp.server;
 
+import java.util.List;
+
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.purdueacm.sigapp.client.QuestionService;
@@ -10,12 +13,30 @@ import com.purdueacm.sigapp.shared.Question;
 public class QuestionServiceImpl extends RemoteServiceServlet implements QuestionService {
 
 	/**
-	 * Gets all of the questions from the datastore.
+	 * Gets all of the questions from the datastore. Only use this method on the admin 
+	 * console, otherwise you will use a TON of datastore reads.
 	 * @return
 	 */
 	public Question[] getAllQuestions() {
-		//TODO implement this.
-		return null;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		
+		Query query = pm.newQuery(Question.class);
+		
+		List<Question> questions;
+		Question[] toReturn = null;
+		
+		questions = (List<Question>)query.execute(Question.class);
+		
+		toReturn = new Question[questions.size()];
+		
+		for(int i = 0; i<questions.size(); i++) {
+			toReturn[i] = questions.get(i);
+		}
+		
+		
+		query.closeAll();
+		pm.close();
+		return toReturn;
 	}
 	
 	/**
