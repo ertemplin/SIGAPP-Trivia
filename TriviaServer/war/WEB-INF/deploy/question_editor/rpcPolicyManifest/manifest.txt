@@ -1,2 +1,0 @@
-# Module question_editor
-# RPC service class, partial path of RPC policy file
