@@ -16,10 +16,10 @@
 			<a class="brand" href="/"> SigApp Trivia </a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active">
+					<li id="home">
 					<%= link_to 'Home', '/' %>
 					</li>
-					<li>
+					<li id="questions">
 					<%= link_to 'Questions', questions_path %>
 					</li>
 				</ul>
@@ -29,6 +29,31 @@
 </div>
 
 <%= yield %>
+
+<script type="text/javascript">
+	/**
+	 * Function used to set the active link
+	 * in the navigation bar.
+	 */
+	function setNavActive (url) {
+		if(url == "") {
+			$("#home").addClass("active");
+		} else {
+			$("#questions").addClass("active");
+		}
+	}
+	
+	// Parse the URL
+	url = document.URL;
+	i = 0;
+	for(slashes = 0; slashes<3; i++) {
+		if(url[i] == '/')
+			slashes++;
+	}
+
+	// Once the document is ready, set the active nav item
+	$(document).ready(setNavActive(document.URL.substring(i)));
+</script>
 
 </body>
 </html>
