@@ -1,12 +1,9 @@
 body {
-  background-color: #fff;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px; }
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */}
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 18px; }
 
@@ -15,13 +12,13 @@ pre {
   padding: 10px;
   font-size: 11px; }
 
-a {
-  color: #000;
-  &:visited {
-    color: #666; }
-  &:hover {
-    color: #fff;
-    background-color: #000; } }
+// a {
+//   color: #000;
+//   &:visited {
+//     color: #666; }
+//   &:hover {
+//     color: #fff;
+//     background-color: #000; } }
 
 div {
   &.field, &.actions {
