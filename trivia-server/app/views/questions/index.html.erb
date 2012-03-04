@@ -1,31 +1,32 @@
 <h1>Listing questions</h1>
 
-<table>
-  <tr>
-    <th>Question</th>
-    <th>Correctanswer</th>
-    <th>Incorrect1</th>
-    <th>Incorrect2</th>
-    <th>Incorrect3</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @questions.each do |question| %>
-  <tr>
-    <td><%= question.question %></td>
-    <td><%= question.correctAnswer %></td>
-    <td><%= question.incorrect1 %></td>
-    <td><%= question.incorrect2 %></td>
-    <td><%= question.incorrect3 %></td>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<table class="table table-striped">
+	<thead>
+		<th>Question</th>
+		<th>Correctanswer</th>
+		<th>Incorrect1</th>
+		<th>Incorrect2</th>
+		<th>Incorrect3</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</thead>
+	<tbody>
+		<% @questions.each do |question| %>
+			<tr>
+				<td><%= question.question %></td>
+				<td><%= question.correctAnswer %></td>
+				<td><%= question.incorrect1 %></td>
+				<td><%= question.incorrect2 %></td>
+				<td><%= question.incorrect3 %></td>
+				<td><%= link_to 'Show', question, :class => "btn" %></td>
+				<td><%= link_to 'Edit', edit_question_path(question), :class => "btn btn-warning" %></td>
+				<td><%= link_to 'Destroy', question, :class => "btn btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_question_path, :class => "btn btn-success btn-large" %>
