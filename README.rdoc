@@ -1,8 +1,8 @@
 = Trivial
-= Repository Directory Explanation
-== BuzzTime
+== Repository Directory Explanation
+=== BuzzTime
 Android controller app.
-== trivia-server
+=== trivia-server
 Ruby on Rails server for storing questions and doing matchmaking.
-== videowall
+=== videowall
 Java Swing application to display questions and a scoreboard.
