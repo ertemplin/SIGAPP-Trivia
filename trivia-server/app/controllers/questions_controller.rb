@@ -1,4 +1,7 @@
 class QuestionsController < ApplicationController
+
+	http_basic_authenticate_with :name => "sigapp", :password => "secret", :except => [:new, :create]
+
   # GET /questions
   # GET /questions.json
   def index
@@ -44,7 +47,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+		format.html { redirect_to :back }
+        # format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
       else
         format.html { render action: "new" }
