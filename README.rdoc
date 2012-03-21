@@ -7,7 +7,7 @@ Ruby on Rails server for storing questions and doing matchmaking.
 === videowall
 Java Swing application to display questions and a scoreboard.
 
-= Network communication diagram
+== Network communication diagram
 
   +---------------------------+                                   Send current question.
   | Video Wall                +--------------------------------------------------+
