@@ -15,7 +15,7 @@ Starting a new question:
 
 End of question:
 	videowall sends:
-		"question end. correct answer (answer)"
+		"question end. correct answer (answer a, b, c, or d)"
 
 Answering a question:
 	phone sends:
