@@ -1,0 +1,26 @@
+Joining a game:
+	Phone sends:
+		"join (username)"
+	videowall replies:
+		"(username) accepted"
+		OR
+		"(username) gtfo"
+
+Starting a new question:
+	videowall sends:
+		"starting new question (currenttime)"
+	phones respone:
+		"(username) is active"
+	Phones can start sending responses.
+
+End of question:
+	videowall sends:
+		"question end"
+
+Answering a question:
+	phone sends:
+		"(username) (answer a, b, c, or d)"
+	videowall replies:
+		"(username) answer recieved"
+
+
