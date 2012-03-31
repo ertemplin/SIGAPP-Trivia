@@ -1,5 +1,7 @@
 package edu.purdue.cs;
 
+import java.util.ArrayDeque;
+
 public class Writer implements Runnable {
 	private NetworkConnection nc;
 	private ArrayDeque<Message> messages;
