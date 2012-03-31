@@ -22,8 +22,14 @@ public class Room {
 		System.out.printf("done\n");
 	}
 
-	public synchronized void joinRoom(Client client) {
+	public synchronized boolean joinRoom(Client client) {
+		for (Client c : clients) {
+			if(c.getUserName().equals(client.getUserName())){
+				return false;
+			}
+		}
 		clients.add(client);
+		return true;
 	}
 
 	public synchronized void leaveRoom(Client client) {
