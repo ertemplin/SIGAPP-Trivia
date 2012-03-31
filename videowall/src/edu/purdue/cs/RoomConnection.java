@@ -13,7 +13,7 @@ public class RoomConnection {
 	int portLocation;
 
 	public static final String DEFAULT_SERVER = "pc.cs.purdue.edu";
-	public static final int DEFAULT_PORT = 42042; 
+	public static final int DEFAULT_PORT = 42142; 
 
 	public RoomConnection(String name, Observer roomObserver) {
 		initialize(name, roomObserver, DEFAULT_SERVER, DEFAULT_PORT);

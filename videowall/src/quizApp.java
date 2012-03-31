@@ -20,6 +20,7 @@ public class quizApp extends Thread
 	Boolean qStart = false;
 	Boolean sStart = false;
 	RoomConnection room;
+	Question question;
 	long time = 0;
 	String userNow;
 	int count = 1;
@@ -43,6 +44,7 @@ public class quizApp extends Thread
 				{
 					qStart = false;
 					sStart = false;
+					announceAnswer();
 				}
 				else if(!sStart && System.currentTimeMillis()-time >= 5000)
 				{
@@ -63,7 +65,12 @@ public class quizApp extends Thread
 	
 	private void announceQuestion()
 	{
-		room.sendMessage(new Message("New Question"));
+		room.sendMessage(new Message("starting new question " + System.currentTimeMillis()));
+	}
+	
+	private void announceAnswer()
+	{
+		room.sendMessage(new Message("question end. correct answer " + question.correct));
 	}
 	
 	/* Modify the frame to the score list */
@@ -77,7 +84,7 @@ public class quizApp extends Thread
 			scores[i].setText("BOB " + i + "---Correct---" + "---+20---");
 			pScore.add(scores[i]);
 		}
-		scores[0].setText(userName.getText() + "---Correct---" + "---+20---");
+		//scores[0].setText(userName.getText() + "---Correct---" + "---+20---");
 		f.repaint();
 	}
 	
@@ -92,22 +99,22 @@ public class quizApp extends Thread
 			scores[i].setText(i + ".  BOB" + i + "---Number of Questions Correct---"+"-----Total Score-----");
 			pScore.add(scores[i]);
 		}
-		scores[0].setText(userName.getText() + ". " + "---Number of Questions Correct---"+"-----Total Score-----");
+		//scores[0].setText(userName.getText() + ". " + "---Number of Questions Correct---"+"-----Total Score-----");
 		f.repaint();
 	}
 	
 	/* Modify the frame to the question screen */
 	public void question()
 	{
-		Question q = new Question();
-		String s = q.question;
+		question = new Question();
+		String s = question.question;
 		label[4].setText("Question " + count + ". " + s);
 		f.remove(pScore);
 		f.add(pCent, BorderLayout.CENTER);
-		label[0].setText(q.answers[0]);
-		label[1].setText(q.answers[1]);
-		label[2].setText(q.answers[2]);
-		label[3].setText(q.answers[3]);
+		label[0].setText(question.answers[0]);
+		label[1].setText(question.answers[1]);
+		label[2].setText(question.answers[2]);
+		label[3].setText(question.answers[3]);
 		for(int i = 0; i < 4; i++)     
 			pCent.add(label[i]);
 		f.repaint();

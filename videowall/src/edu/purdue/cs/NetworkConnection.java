@@ -18,6 +18,7 @@ public class NetworkConnection extends Observable {
 	private BufferedReader bufferedReader;
 	private Object monitor; // used to control exclusive access to socket and related variables
 	private boolean running;
+	static final String NAME  = "video-wall";
 
 	public NetworkConnection(String name, String serverLocation, int portLocation) {
 		this.name = name;
@@ -73,6 +74,8 @@ public class NetworkConnection extends Observable {
 	private void writeInitialMessage() {
 		try {
 			outputStreamWriter.write(name);
+			outputStreamWriter.write("\n");
+			outputStreamWriter.write(NAME);
 			outputStreamWriter.write("\n");
 			outputStreamWriter.flush();
 		} catch (IOException e) {
