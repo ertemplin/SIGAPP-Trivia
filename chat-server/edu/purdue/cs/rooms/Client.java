@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client extends Thread {
+
+	public static final String EXIT = "exit";
+	
 	Room room;
 
 	Scanner in;
@@ -19,6 +22,10 @@ public class Client extends Thread {
 
 	static int clientCount = 0;
 	int clientId;
+	
+	Socket sock;
+	
+	String username = "";
 
 	public Client(Socket socket) throws IOException {
 		// Setup input and output stream for this client connection...
@@ -26,7 +33,9 @@ public class Client extends Thread {
 		OutputStream os = socket.getOutputStream();
 		in = new Scanner(new InputStreamReader(is));
 		out = new PrintWriter(os, true);
-
+		
+		this.sock = socket;
+	
 		// Initialize statistics...
 		clientId = ++clientCount;
 		cReceived = 0;
@@ -46,7 +55,12 @@ public class Client extends Thread {
 
 		if (in.hasNextLine()) {
 			room = RoomServer.getRoom(in.nextLine());
-			room.joinRoom(this);
+			username = in.nextLine();
+			if(!room.joinRoom(this)){
+				sendMessage(new Message("gtfo"));
+				disconnect();
+				return;
+			}
 
 			System.out.printf("RS: clientId %d joins room %s\n", clientId, room.getName());
 			message = new Message(String.format("Connection from %s joins room %s", this.getName(), room.getName()));
@@ -55,6 +69,12 @@ public class Client extends Thread {
 
 			while (in.hasNextLine()) {
 				message = new Message(in.nextLine());
+				if(message.getText().equals(EXIT)){
+					if (room != null)  // must check for null since room might not have been determined
+						room.leaveRoom(this);
+					disconnect();
+					return;
+				}
 				message.setArrival();
 				cReceived++;
 				room.broadcast(message);
@@ -66,6 +86,14 @@ public class Client extends Thread {
 		if (room != null)  // must check for null since room might not have been determined
 			room.leaveRoom(this);
 	}
+	
+	void disconnect(){
+		try{
+			sock.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 
 	void sendMessage(Message message) {
 		message.setDeparture();
@@ -76,5 +104,9 @@ public class Client extends Thread {
 			// TODO should leave room, but can't without error; need to pass flag back
 		}
 		cSent++;
+	}
+	
+	String getUserName(){
+		return username;
 	}
 }
