@@ -1,10 +1,10 @@
 Joining a game:
 	Phone sends:
-		"join (username)"
-	videowall replies:
-		"(username) accepted"
+		"roomid\nusername\n"
+	server replies:
+		"accepted"
 		OR
-		"(username) gtfo"
+		"gtfo"
 
 Starting a new question:
 	videowall sends:
