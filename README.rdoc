@@ -6,6 +6,8 @@ Android controller app.
 Ruby on Rails server for storing questions and doing matchmaking.
 === videowall
 Java Swing application to display questions and a scoreboard.
+=== chat-server
+Simple java chat server that is used for communication between phones and video-wall/googletv.
 
 == Network communication diagram
 
