@@ -17,7 +17,7 @@ public class Message {
 
 	public String toClient() {
 		tDelay = tDeparture - tArrival;
-		return String.format("%d %d %d %s\n", PROTOCOL_VERSION, messageId, tDelay, text);
+		return text+"\n";//String.format("%d %d %d %s\n", PROTOCOL_VERSION, messageId, tDelay, text);
 	}
 
 	/**

@@ -1,3 +1,4 @@
+
 package edu.purdue.cs.rooms;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Client extends Thread {
 	Socket sock;
 	
 	String username = "";
+	String uuid = "";
 
 	public Client(Socket socket) throws IOException {
 		// Setup input and output stream for this client connection...
@@ -48,22 +50,23 @@ public class Client extends Thread {
 	}
 
 	public void run() {
-		Message message = new Message("Greetings from the Room Server");
-		message.setArrival();
-		sendMessage(message);
-		System.out.format("RS: clientId %d assigned to connection %s\n", clientId, getName());
+		//Message message = new Message("Greetings from the Room Server");
+		//message.setArrival();
+		//sendMessage(message);
+		//System.out.format("RS: clientId %d assigned to connection %s\n", clientId, getName());
 
 		if (in.hasNextLine()) {
 			room = RoomServer.getRoom(in.nextLine());
 			username = in.nextLine();
+			uuid = in.nextLine();
 			if(!room.joinRoom(this)){
 				sendMessage(new Message("gtfo"));
 				disconnect();
 				return;
 			}
 
-			System.out.printf("RS: clientId %d joins room %s\n", clientId, room.getName());
-			message = new Message(String.format("Connection from %s joins room %s", this.getName(), room.getName()));
+			System.out.printf("RS: clientId %s joins room %s\n", username, room.getName());
+			Message message = new Message("user: "+username+" accepted");
 			message.setArrival();
 			room.broadcast(message);
 
@@ -106,7 +109,11 @@ public class Client extends Thread {
 		cSent++;
 	}
 	
-	String getUserName(){
+	String getClientName(){
+		return username;
+	}
+	
+	String getClientUUID(){
 		return username;
 	}
 }
