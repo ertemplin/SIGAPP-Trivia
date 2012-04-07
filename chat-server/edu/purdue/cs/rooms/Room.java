@@ -24,8 +24,10 @@ public class Room {
 
 	public synchronized boolean joinRoom(Client client) {
 		for (Client c : clients) {
-			if(c.getUserName().equals(client.getUserName())){
-				return false;
+			if(c.getClientName().equals(client.getClientName())){
+				if(!c.getClientUUID().equals(client.getClientUUID())){
+					return false;
+				}
 			}
 		}
 		clients.add(client);
