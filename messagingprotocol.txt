@@ -1,6 +1,8 @@
 Joining a game:
 	Phone sends:
-		"roomid\nusername\n"
+		"roomid
+		 username
+		"
 	server replies:
 		"accepted"
 		OR
@@ -8,18 +10,23 @@ Joining a game:
 
 Starting a new question:
 	videowall sends:
-		"starting new question (currenttime)"
-	phones respone:
-		"(username) is active"
+		"starting new question"
 	Phones can start sending responses.
 
 End of question:
 	videowall sends:
-		"question end. correct answer (answer a, b, c, or d)"
+		"question end
+		 correct answer: (a, b, c, or d)
+		 Leaderboard:
+		 (username) top-score
+		 (username) second-score
+		 (username) third-score
+		 ... ALL scores sorted ...
+		 End leaderboard"
 
 Answering a question:
 	phone sends:
-		"(username) (answer a, b, c, or d)"
+		"(username) (a, b, c, or d)"
 	videowall replies:
 		"(username) answer recieved"
 
