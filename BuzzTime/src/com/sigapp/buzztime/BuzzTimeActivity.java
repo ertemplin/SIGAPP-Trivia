@@ -88,13 +88,13 @@ public class BuzzTimeActivity extends Activity {
     	LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
     	final View layout = inflater.inflate(R.layout.join_game_dialog,(ViewGroup) findViewById(R.id.dialog_root));
     	alertDialogBuilder.setView(layout);
-    	final EditText userNameBox = (EditText) layout.findViewById(R.id.unameInput);
+    	final EditText codeBox = (EditText) layout.findViewById(R.id.codeInput);
     	
     	alertDialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//EditText userNameBox = (EditText) layout.findViewById(R.id.unameInput);
-        		String userName = userNameBox.getText().toString();
+        		String userName = codeBox.getText().toString();
         		text_uname.setText("User Name:" + " " + userName);
         		text_score.setText("Score: " + "0");
         		
