@@ -3,19 +3,22 @@ package com.sigapp.buzztime;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.app.Application;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import edu.purdue.cs.Message;
 import edu.purdue.cs.RoomConnection;
 
-public class ApplicationController  {
+public class ApplicationController extends Application {
 
 	private RoomConnection room;
 	
 	public static String userName;
 	public static String roomName;
 	public static String uid;
+	
+	private char lastAnswer;
 	
 	public ApplicationController(String userName, String roomName, Context c) {
 		// Get a unique id for the phone
@@ -39,8 +42,9 @@ public class ApplicationController  {
 	}
 	
 	public void sendAnswer(char answer) {
+		this.lastAnswer = answer;
 		Message toSend = new Message("user: "+ApplicationController.userName+" "+answer);
 		room.sendMessage(toSend);
-	
 	}
+	
 }
