@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Observable;
 
+import com.sigapp.buzztime.ApplicationController;
+
 public class NetworkConnection extends Observable {
 	String name;
 	String serverLocation;
@@ -75,6 +77,10 @@ public class NetworkConnection extends Observable {
 	private void writeInitialMessage() {
 		try {
 			outputStreamWriter.write(name);
+			outputStreamWriter.write("\n");
+			outputStreamWriter.write(ApplicationController.userName);
+			outputStreamWriter.write("\n");
+			outputStreamWriter.write(ApplicationController.uid);
 			outputStreamWriter.write("\n");
 			outputStreamWriter.flush();
 		} catch (IOException e) {

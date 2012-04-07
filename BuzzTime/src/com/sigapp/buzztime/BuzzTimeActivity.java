@@ -8,6 +8,7 @@ import edu.purdue.cs.RoomConnection;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class BuzzTimeActivity extends Activity {
 	 TextView text_uname;
 	 TextView text_score;
 	 
-	 RoomConnection room;
+	 ApplicationController controller;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class BuzzTimeActivity extends Activity {
 					@Override
 					public void onClick(View arg0) {
 						Log.d("Click debugging", ((char)('A' + position))+"");
+						controller.sendAnswer((char) ('A' + position));
 						
 					}
 				});
@@ -88,24 +90,19 @@ public class BuzzTimeActivity extends Activity {
     	LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
     	final View layout = inflater.inflate(R.layout.join_game_dialog,(ViewGroup) findViewById(R.id.dialog_root));
     	alertDialogBuilder.setView(layout);
+    	final EditText nameBox = (EditText) layout.findViewById(R.id.unameInput);
     	final EditText codeBox = (EditText) layout.findViewById(R.id.codeInput);
-    	
+    	final Context context = this.getApplicationContext();
     	alertDialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//EditText userNameBox = (EditText) layout.findViewById(R.id.unameInput);
-        		String userName = codeBox.getText().toString();
+				String userName = nameBox.getText().toString();
+        		String roomName = codeBox.getText().toString();
         		text_uname.setText("User Name:" + " " + userName);
         		text_score.setText("Score: " + "0");
         		
-        		room = new RoomConnection(userName, new Observer() {
-					@Override
-					public void update(Observable arg0, Object arg1) {
-						Message m = (Message) arg1;
-						Log.d("New Message", m.getText());
-						
-					}
-        		});
+        		controller = new ApplicationController(userName, roomName, context);
 			}
     		
     	});
