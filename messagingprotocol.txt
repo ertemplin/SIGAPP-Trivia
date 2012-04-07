@@ -4,7 +4,7 @@ Joining a game:
 		 username
 		"
 	server replies:
-		"accepted"
+		"(username) accepted"
 		OR
 		"gtfo"
 
