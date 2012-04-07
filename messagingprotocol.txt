@@ -2,6 +2,7 @@ Joining a game:
 	Phone sends:
 		"roomid
 		 username
+		 uniqueid
 		"
 	server replies:
 		"user: (username) accepted"
