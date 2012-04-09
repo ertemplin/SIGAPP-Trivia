@@ -8,23 +8,54 @@
         android:id="@+id/t_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SCORE: 250"
         android:layout_gravity="center"
+        android:text="SCORE: 250"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/t_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name : Dumbo Autograder"
         android:layout_gravity="center"
+        android:text="User Name : ACM SigApp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <GridView
-        android:id="@+id/ques_grid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:numColumns="2" >
-    </GridView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/choiceA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="A" />
+
+        <Button
+            android:id="@+id/choiceB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="B" />
+
+        <Button
+            android:id="@+id/choiceC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="C" />
+
+        <Button
+            android:id="@+id/choiceD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="D" />
+
+    </RelativeLayout>
 
 </LinearLayout>

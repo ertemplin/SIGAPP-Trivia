@@ -40,44 +40,35 @@ public class BuzzTimeActivity extends Activity {
         
         text_uname = (TextView) findViewById(R.id.t_username);
         text_score = (TextView) findViewById(R.id.t_score);
-        GridView quesGrid = (GridView) findViewById(R.id.ques_grid);
-        quesGrid.setAdapter(new BaseAdapter(){
-
+        
+        Button choiceA = (Button) findViewById(R.id.choiceA);
+        Button choiceB = (Button) findViewById(R.id.choiceB);
+        Button choiceC = (Button) findViewById(R.id.choiceC);
+        Button choiceD = (Button) findViewById(R.id.choiceD);
+        
+        choiceA.setOnClickListener(new OnClickListener() {
 			@Override
-			public int getCount() {
-				// TODO Auto-generated method stub
-				return 4;
+			public void onClick(View arg0) {
+				controller.sendAnswer('A');
 			}
-
+        });
+        choiceB.setOnClickListener(new OnClickListener() {
 			@Override
-			public Object getItem(int position) {
-				// TODO Auto-generated method stub
-				return null;
+			public void onClick(View arg0) {
+				controller.sendAnswer('B');
 			}
-
+        });
+        choiceC.setOnClickListener(new OnClickListener() {
 			@Override
-			public long getItemId(int position) {
-				// TODO Auto-generated method stub
-				return 0;
+			public void onClick(View arg0) {
+				controller.sendAnswer('C');
 			}
-
+        });
+        choiceD.setOnClickListener(new OnClickListener() {
 			@Override
-			public View getView(final int position, View convertView, ViewGroup parent) {
-				// TODO Auto-generated method stub
-				Button b = new Button(BuzzTimeActivity.this);
-				b.setHeight(300);
-				b.setText((char)('A' + position) + "");
-				b.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						Log.d("Click debugging", ((char)('A' + position))+"");
-						controller.sendAnswer((char) ('A' + position));
-						
-					}
-				});
-				return b;
+			public void onClick(View arg0) {
+				controller.sendAnswer('D');
 			}
-        	
         });
         
         createJoinDialog();
