@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="left"
     android:orientation="vertical" >
 
     <TextView
@@ -20,42 +21,53 @@
         android:text="User Name : ACM SigApp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <Button
-            android:id="@+id/choiceA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="A" />
-
-        <Button
-            android:id="@+id/choiceB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="B" />
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/choiceC"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:text="C" />
+            android:layout_weight="1"
+            android:weightSum="2" >
 
-        <Button
-            android:id="@+id/choiceD"
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/choiceA"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="A" />
+
+            <Button
+                android:id="@+id/choiceB"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="B" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="D" />
+            android:layout_weight="1"
+            android:weightSum="2" >
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/choiceC"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="C" />
+
+            <Button
+                android:id="@+id/choiceD"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="D" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
