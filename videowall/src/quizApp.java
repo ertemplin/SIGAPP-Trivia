@@ -1,6 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +20,6 @@ public class quizApp extends Thread
 	JPanel pTop, pCent, pBot, pScore, pRecap;
 	JLabel label[];
 	JLabel scores[];
-	JTextField userName;
 	Boolean qStart = false;
 	Boolean sStart = false;
 	RoomConnection room;
@@ -24,6 +27,10 @@ public class quizApp extends Thread
 	long time = 0;
 	String userNow;
 	int count = 1;
+	final int SECONDS = 15;
+	RoomObserver observer;
+	ArrayList<Player> active;
+	ArrayList<Player> inactive;
 	
 	public void run()
 	{
@@ -40,37 +47,46 @@ public class quizApp extends Thread
 			}
 			else
 			{
-				if(sStart && System.currentTimeMillis()-time >= 5000)
+				if(sStart && System.currentTimeMillis()-time >= SECONDS * 1000)
 				{
 					qStart = false;
 					sStart = false;
+					sort(active);
 					announceAnswer();
 				}
-				else if(!sStart && System.currentTimeMillis()-time >= 5000)
+				else if(!sStart && System.currentTimeMillis()-time >= SECONDS * 1000)
 				{
-					if(count++ % 5 == 0)
-						recap();
-					else
-						score();
+					count++;
+					score();
 					sStart = true;
 					time = System.currentTimeMillis();
 				}
-				else if(System.currentTimeMillis()-time < 5000)
+				else if(System.currentTimeMillis()-time < SECONDS * 1000)
 				{
-					label[5].setText(Long.toString(5-(System.currentTimeMillis()-time)/1000) + " second(s) left..");
+					label[5].setText(Long.toString(SECONDS-(System.currentTimeMillis()-time)/1000) + " second(s) left..");
 				}
 			}
+			//TODO: Check for people joining and then add them to the leaderboard/check if a phone sends in an answer
 		}
 	}
 	
 	private void announceQuestion()
 	{
-		room.sendMessage(new Message("starting new question " + System.currentTimeMillis()));
+		room.sendMessage(new Message("starting new question"));
 	}
 	
 	private void announceAnswer()
 	{
-		room.sendMessage(new Message("question end. correct answer " + question.correct));
+		String message = "question end\ncorrect answer: " + question.correct + "\nLeaderboard:\n";
+		for(int i=0;i<active.size();i++)
+			message+= active.get(i).name + " " + active.get(i).score + "\n";
+		message += "End Leaderboard";
+		room.sendMessage(new Message(message));
+	}
+	
+	private void sort(ArrayList<Player> list)
+	{
+		Collections.sort(list,new Comparator<Player>() {public int compare(Player player, Player otherPlayer) {return (player.score > otherPlayer.score) ? 1 : -1;}});
 	}
 	
 	/* Modify the frame to the score list */
@@ -79,12 +95,11 @@ public class quizApp extends Thread
 		label[4].setText("~~~~~~~~~~Current Scores~~~~~~~~~~");
 		f.remove(pCent);
 		f.add(pScore, BorderLayout.CENTER);
-		for(int i = 0; i < 10; i++)
+		for(int i=0;i<active.size();i++)
 		{
-			scores[i].setText("BOB " + i + "---Correct---" + "---+20---");
+			scores[i].setText(active.get(i).name + "---" + active.get(i).score + "---");
 			pScore.add(scores[i]);
 		}
-		//scores[0].setText(userName.getText() + "---Correct---" + "---+20---");
 		f.repaint();
 	}
 	
@@ -99,7 +114,6 @@ public class quizApp extends Thread
 			scores[i].setText(i + ".  BOB" + i + "---Number of Questions Correct---"+"-----Total Score-----");
 			pScore.add(scores[i]);
 		}
-		//scores[0].setText(userName.getText() + ". " + "---Number of Questions Correct---"+"-----Total Score-----");
 		f.repaint();
 	}
 	
@@ -137,7 +151,10 @@ public class quizApp extends Thread
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		room = new RoomConnection("LWSN", new RoomObserver());
+		active = new ArrayList<Player>();
+		inactive = new ArrayList<Player>();
+		observer = new RoomObserver();
+		room = new RoomConnection("LWSN", observer);
 	}
 	
 	public void createFrame()
