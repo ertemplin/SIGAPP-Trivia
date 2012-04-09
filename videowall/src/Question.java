@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.json.JSONObject;
 
@@ -33,22 +35,10 @@ public class Question
 			answers[1] = object.getString("incorrect1");
 			answers[2] = object.getString("incorrect2");
 			answers[3] = object.getString("incorrect3");
-			answers = shuffleAnswers(answers);
+			Collections.shuffle(Arrays.asList(answers));
 			correct = findCorrect(answers, answer);
 		}
 		catch(Exception e){e.printStackTrace();}
-	}
-	
-	private static String[] shuffleAnswers(String[] answers)
-	{
-		for(int i=0;i<answers.length;i++)
-		{
-			String temp = answers[i];
-			int index = (int)Math.random()*answers.length;
-			answers[i] = answers[index];
-			answers[index] = temp;
-		}
-		return answers;
 	}
 	
 	private char findCorrect(String[] answers, String answer)
