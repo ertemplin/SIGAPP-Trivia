@@ -20,8 +20,8 @@ public class QuizApp extends Thread
 	JPanel pTop, pCent, pBot, pScore, pRecap;
 	JLabel label[];
 	JLabel scores[];
-	Boolean qStart = false;
-	Boolean sStart = false;
+	Boolean questionStart = false;
+	Boolean scoreStart = false;
 	RoomConnection room;
 	Question question;
 	long time = 0;
@@ -35,23 +35,23 @@ public class QuizApp extends Thread
 		initGame();
 
 		while(true) {
-			if(!qStart) {
+			if(!questionStart) {
 				nextQuestion();
 				announceQuestion();
-				qStart = true;
+				questionStart = true;
 				time = System.currentTimeMillis();
 			}
 			else {
-				if(sStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
-					qStart = false;
-					sStart = false;
+				if(scoreStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
+					questionStart = false;
+					scoreStart = false;
 					sort(active);
 					announceAnswer();
 				}
-				else if(!sStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
+				else if(!scoreStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
 					count++;
 					//TODO highlight the correct answer
-					sStart = true;
+					scoreStart = true;
 					time = System.currentTimeMillis();
 				}
 				else if(System.currentTimeMillis()-time < QUESTION_LENGTH * 1000) {
@@ -134,7 +134,7 @@ public class QuizApp extends Thread
 		f.add(pBot, BorderLayout.SOUTH);
 		f.setSize(1200, 1200);
 		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		active = new ArrayList<Player>();
 		observer = new RoomObserver(this);
