@@ -137,7 +137,6 @@ public class QuizApp extends Thread
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		active = new ArrayList<Player>();
-		inactive = new ArrayList<Player>();
 		observer = new RoomObserver(this);
 		room = new RoomConnection("LWSN", observer);
 	}
