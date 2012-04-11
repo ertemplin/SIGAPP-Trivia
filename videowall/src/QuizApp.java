@@ -27,10 +27,10 @@ public class QuizApp extends Thread
 	long time = 0;
 	String userNow;
 	int count = 1;
-	final int SECONDS = 15;
+	final int QUESTION_LENGTH = 15;
 	RoomObserver observer;
-	ArrayList<Player> active;
-	ArrayList<Player> inactive;
+	ArrayList<Player> active; //Current list of players in the game.
+	ArrayList<Player> inactive; //List of players that have played, but are no longer playing.
 
 	public void run() {
 		initGame();
@@ -43,20 +43,20 @@ public class QuizApp extends Thread
 				time = System.currentTimeMillis();
 			}
 			else {
-				if(sStart && System.currentTimeMillis()-time >= SECONDS * 1000) {
+				if(sStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
 					qStart = false;
 					sStart = false;
 					sort(active);
 					announceAnswer();
 				}
-				else if(!sStart && System.currentTimeMillis()-time >= SECONDS * 1000) {
+				else if(!sStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
 					count++;
-					score();
+					//TODO highlight the correct answer
 					sStart = true;
 					time = System.currentTimeMillis();
 				}
-				else if(System.currentTimeMillis()-time < SECONDS * 1000) {
-					label[5].setText(Long.toString(SECONDS-(System.currentTimeMillis()-time)/1000) + " second(s) left..");
+				else if(System.currentTimeMillis()-time < QUESTION_LENGTH * 1000) {
+					label[5].setText(Long.toString(QUESTION_LENGTH-(System.currentTimeMillis()-time)/1000) + " second(s) left..");
 				}
 			}
 			//TODO: Check for people joining and then add them to the leaderboard/check if a phone sends in an answer
@@ -77,30 +77,6 @@ public class QuizApp extends Thread
 	
 	private void sort(ArrayList<Player> list) {
 		Collections.sort(list,new Comparator<Player>() {public int compare(Player player, Player otherPlayer) {return (player.score > otherPlayer.score) ? 1 : -1;}});
-	}
-	
-	/* Modify the frame to the score list */
-	public void score() {
-		label[4].setText("~~~~~~~~~~Current Scores~~~~~~~~~~");
-		f.remove(pCent);
-		f.add(pScore, BorderLayout.CENTER);
-		for(int i=0;i<active.size();i++) {
-			scores[i].setText(active.get(i).name + "---" + active.get(i).score + "---");
-			pScore.add(scores[i]);
-		}
-		f.repaint();
-	}
-	
-	/* Modify the frame to the recap list */
-	public void recap() {
-		label[4].setText(">>>>>>>>>>Total Scores<<<<<<<<<<");
-		f.remove(pCent);
-		f.add(pScore, BorderLayout.CENTER);
-		for(int i = 0; i < 10; i++) {
-			scores[i].setText(i + ".  BOB" + i + "---Number of Questions Correct---"+"-----Total Score-----");
-			pScore.add(scores[i]);
-		}
-		f.repaint();
 	}
 	
 	/* Modify the frame to the question screen */
