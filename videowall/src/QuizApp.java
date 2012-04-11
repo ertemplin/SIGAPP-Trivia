@@ -30,7 +30,6 @@ public class QuizApp extends Thread
 	final int QUESTION_LENGTH = 15;
 	RoomObserver observer;
 	ArrayList<Player> active; //Current list of players in the game.
-	ArrayList<Player> inactive; //List of players that have played, but are no longer playing.
 
 	public void run() {
 		initGame();
@@ -96,40 +95,14 @@ public class QuizApp extends Thread
 	}
 	
 	private void initGame() {
-		createFrame();
-		createPanel(); 
-		createLabel();
-		for(int i = 0; i < 4; i++)
-			pCent.add(label[i]);
-		pTop.add(label[4]);
-		pBot.add(label[5]);
-
-		f.add(pTop, BorderLayout.NORTH);
-		f.add(pCent, BorderLayout.CENTER);
-		f.add(pBot, BorderLayout.SOUTH);
-		f.setSize(1200, 1200);
-		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		active = new ArrayList<Player>();
-		inactive = new ArrayList<Player>();
-		observer = new RoomObserver(this);
-		room = new RoomConnection("LWSN", observer);
-	}
-	
-	private void createFrame() {
 		f = new JFrame("Quiz game");
 		f.setLayout(new BorderLayout());
-	}
-	
-	private void createPanel() {
+		
 		pCent = new JPanel(new GridLayout(4, 1, 10, 10));
 		pTop = new JPanel();
 		pBot = new JPanel();
 		pScore = new JPanel(new GridLayout(10, 1, 10, 10));
-	}
-	
-	private void createLabel() {
+		
 		label = new JLabel[6];
 		for(int i = 0; i < 4; i++) {
 			label[i] = new JLabel("");
@@ -150,5 +123,22 @@ public class QuizApp extends Thread
 			scores[i].setHorizontalAlignment(SwingConstants.CENTER);
 			scores[i].setFont(new Font("Georgia", Font.ITALIC, 15));
 		}
+		
+		for(int i = 0; i < 4; i++)
+			pCent.add(label[i]);
+		pTop.add(label[4]);
+		pBot.add(label[5]);
+
+		f.add(pTop, BorderLayout.NORTH);
+		f.add(pCent, BorderLayout.CENTER);
+		f.add(pBot, BorderLayout.SOUTH);
+		f.setSize(1200, 1200);
+		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		active = new ArrayList<Player>();
+		inactive = new ArrayList<Player>();
+		observer = new RoomObserver(this);
+		room = new RoomConnection("LWSN", observer);
 	}
 }
