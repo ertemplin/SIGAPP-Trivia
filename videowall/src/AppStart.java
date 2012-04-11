@@ -1,8 +1,8 @@
-public class appStart
+public class AppStart
 {
 	public static void main(String[] args)
 	{
-		quizApp ap = new quizApp();
+		QuizApp ap = new QuizApp();
 		ap.start();
 		try
 		{

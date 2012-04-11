@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 import edu.purdue.cs.Message;
 import edu.purdue.cs.RoomConnection;
 
-public class quizApp extends Thread
+public class QuizApp extends Thread
 {
 	JFrame f;
 	JPanel pTop, pCent, pBot, pScore, pRecap;
@@ -31,38 +31,31 @@ public class quizApp extends Thread
 	RoomObserver observer;
 	ArrayList<Player> active;
 	ArrayList<Player> inactive;
-	
-	public void run()
-	{
+
+	public void run() {
 		initGame();
-		
-		while(true)
-		{
-			if(!qStart)
-			{
-				question();
+
+		while(true) {
+			if(!qStart) {
+				nextQuestion();
 				announceQuestion();
 				qStart = true;
 				time = System.currentTimeMillis();
 			}
-			else
-			{
-				if(sStart && System.currentTimeMillis()-time >= SECONDS * 1000)
-				{
+			else {
+				if(sStart && System.currentTimeMillis()-time >= SECONDS * 1000) {
 					qStart = false;
 					sStart = false;
 					sort(active);
 					announceAnswer();
 				}
-				else if(!sStart && System.currentTimeMillis()-time >= SECONDS * 1000)
-				{
+				else if(!sStart && System.currentTimeMillis()-time >= SECONDS * 1000) {
 					count++;
 					score();
 					sStart = true;
 					time = System.currentTimeMillis();
 				}
-				else if(System.currentTimeMillis()-time < SECONDS * 1000)
-				{
+				else if(System.currentTimeMillis()-time < SECONDS * 1000) {
 					label[5].setText(Long.toString(SECONDS-(System.currentTimeMillis()-time)/1000) + " second(s) left..");
 				}
 			}
@@ -70,13 +63,11 @@ public class quizApp extends Thread
 		}
 	}
 	
-	private void announceQuestion()
-	{
+	private void announceQuestion() {
 		room.sendMessage(new Message("starting new question"));
 	}
 	
-	private void announceAnswer()
-	{
+	private void announceAnswer() {
 		String message = "question end\ncorrect answer: " + question.correct + "\nLeaderboard:\n";
 		for(int i=0;i<active.size();i++)
 			message+= active.get(i).name + " " + active.get(i).score + "\n";
@@ -84,19 +75,16 @@ public class quizApp extends Thread
 		room.sendMessage(new Message(message));
 	}
 	
-	private void sort(ArrayList<Player> list)
-	{
+	private void sort(ArrayList<Player> list) {
 		Collections.sort(list,new Comparator<Player>() {public int compare(Player player, Player otherPlayer) {return (player.score > otherPlayer.score) ? 1 : -1;}});
 	}
 	
 	/* Modify the frame to the score list */
-	public void score()
-	{
+	public void score() {
 		label[4].setText("~~~~~~~~~~Current Scores~~~~~~~~~~");
 		f.remove(pCent);
 		f.add(pScore, BorderLayout.CENTER);
-		for(int i=0;i<active.size();i++)
-		{
+		for(int i=0;i<active.size();i++) {
 			scores[i].setText(active.get(i).name + "---" + active.get(i).score + "---");
 			pScore.add(scores[i]);
 		}
@@ -104,13 +92,11 @@ public class quizApp extends Thread
 	}
 	
 	/* Modify the frame to the recap list */
-	public void recap()
-	{
+	public void recap() {
 		label[4].setText(">>>>>>>>>>Total Scores<<<<<<<<<<");
 		f.remove(pCent);
 		f.add(pScore, BorderLayout.CENTER);
-		for(int i = 0; i < 10; i++)
-		{
+		for(int i = 0; i < 10; i++) {
 			scores[i].setText(i + ".  BOB" + i + "---Number of Questions Correct---"+"-----Total Score-----");
 			pScore.add(scores[i]);
 		}
@@ -118,8 +104,7 @@ public class quizApp extends Thread
 	}
 	
 	/* Modify the frame to the question screen */
-	public void question()
-	{
+	public void nextQuestion() {
 		question = new Question();
 		String s = question.question;
 		label[4].setText("Question " + count + ". " + s);
@@ -134,8 +119,7 @@ public class quizApp extends Thread
 		f.repaint();
 	}
 	
-	public void initGame()
-	{
+	private void initGame() {
 		createFrame();
 		createPanel(); 
 		createLabel();
@@ -153,29 +137,25 @@ public class quizApp extends Thread
 		
 		active = new ArrayList<Player>();
 		inactive = new ArrayList<Player>();
-		observer = new RoomObserver();
+		observer = new RoomObserver(this);
 		room = new RoomConnection("LWSN", observer);
 	}
 	
-	public void createFrame()
-	{
+	private void createFrame() {
 		f = new JFrame("Quiz game");
 		f.setLayout(new BorderLayout());
 	}
 	
-	public void createPanel()
-	{
+	private void createPanel() {
 		pCent = new JPanel(new GridLayout(4, 1, 10, 10));
 		pTop = new JPanel();
 		pBot = new JPanel();
 		pScore = new JPanel(new GridLayout(10, 1, 10, 10));
 	}
 	
-	public void createLabel()
-	{
+	private void createLabel() {
 		label = new JLabel[6];
-		for(int i = 0; i < 4; i++)
-		{
+		for(int i = 0; i < 4; i++) {
 			label[i] = new JLabel("");
 			label[i].setHorizontalAlignment(SwingConstants.CENTER);
 			label[i].setFont(new Font("Serif", Font.BOLD, 20));
@@ -189,8 +169,7 @@ public class quizApp extends Thread
 		label[5].setFont(new Font("Courier New", Font.ITALIC, 30));
 		
 		scores = new JLabel[10];
-		for(int i = 0; i < 10; i++)
-		{
+		for(int i = 0; i < 10; i++) {
 			scores[i] = new JLabel("");
 			scores[i].setHorizontalAlignment(SwingConstants.CENTER);
 			scores[i].setFont(new Font("Georgia", Font.ITALIC, 15));
