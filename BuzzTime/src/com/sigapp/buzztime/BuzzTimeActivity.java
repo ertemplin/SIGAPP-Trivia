@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,8 +39,9 @@ public class BuzzTimeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-        text_uname = (TextView) findViewById(R.id.t_username);
+        /*text_uname = (TextView) findViewById(R.id.t_username);
         text_score = (TextView) findViewById(R.id.t_score);
         
         Button choiceA = (Button) findViewById(R.id.choiceA);
@@ -102,7 +105,7 @@ public class BuzzTimeActivity extends Activity {
     	
     	AlertDialog joinGameDialog = alertDialogBuilder.create();
 
-		joinGameDialog.show();
+		joinGameDialog.show();*/
     }
     
 }
