@@ -49,9 +49,9 @@ public class RoomObserver implements Observer
         else{
           for(int i = 0; i < app.active.size(); i++){
             user = app.active.get(i);
-            ans = Character.toString(app.curAns);
-            System.out.println(ans);
-            if(line[1].equals(user.name) && line[2].equals(app.curAns))
+            ans = Character.toString(app.getAnswer());
+            //System.out.println(ans);
+            if(line[1].equals(user.name) && line[2].equals(app.getAnswer()))
               user.addPoints(5);
           }
         }

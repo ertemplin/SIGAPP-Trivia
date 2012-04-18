@@ -76,6 +76,10 @@ public class QuizApp extends Thread
 	private void sort(ArrayList<Player> list) {
 		Collections.sort(list,new Comparator<Player>() {public int compare(Player player, Player otherPlayer) {return (player.score > otherPlayer.score) ? 1 : -1;}});
 	}
+
+    public char getAnswer(){
+	return question.correct;
+    }
 	
 	/* Modify the frame to the question screen */
 	public void nextQuestion() {
