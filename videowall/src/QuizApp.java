@@ -137,7 +137,7 @@ public class QuizApp extends Thread
 		leaderBoardLabel.setForeground(Color.decode("#FF6633"));
 		leaderBoardLabel.setFont(new Font("Helvitica", Font.PLAIN, 40));
 		leaderBoardPanel.add(leaderBoardLabel);
-		leaderBoardList = new JLabel("<html><table><tr><td>name1fadfjdkdfja</td><td width=\"50\" /><td>100</td></tr><tr><td>name2</td><td width=\"50\" /><td>10</td></tr></table></html>");
+		leaderBoardList = new JLabel("<html><table><tr><td>name1</td><td width=\"50\" /><td>100</td></tr><tr><td>name2</td><td width=\"50\" /><td>10</td></tr></table></html>");
 		leaderBoardList.setHorizontalAlignment(JLabel.CENTER);
 		leaderBoardList.setFont(new Font("Helvitica", Font.PLAIN, 35));
 		leaderBoardPanel.add(leaderBoardList);
