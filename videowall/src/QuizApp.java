@@ -35,6 +35,7 @@ public class QuizApp extends Thread
 	JLabel choiceB;
 	JLabel choiceC;
 	JLabel choiceD;
+	JLabel leaderBoardList;
 
 	public void run() {
 		initGame();
@@ -51,6 +52,7 @@ public class QuizApp extends Thread
 					questionStart = false;
 					scoreStart = false;
 					sort(active);
+					updateLeaderboard();
 					announceAnswer();
 				}
 				else if(!scoreStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
@@ -99,6 +101,15 @@ public class QuizApp extends Thread
 
 		f.repaint();
 	}
+	
+	public void updateLeaderboard() {
+		String toPutOnLeaderboard = "<html><table>";
+		for(int i = 0; i<active.size(); i++) {
+			toPutOnLeaderboard += "<tr><td>" +active.get(i).name + "</td><td width=\"50\" /><td>" + active.get(i).score + "</td></tr>";
+		}
+		toPutOnLeaderboard += "</table></html>";
+		leaderBoardList.setText(toPutOnLeaderboard);
+	}
 
 	
 	private void initGame() {
@@ -117,19 +128,21 @@ public class QuizApp extends Thread
 		logo.setBackground(Color.WHITE);
 		rightPanel.add(logo, BorderLayout.NORTH);
 		
+		JPanel leaderBoardHolder = new JPanel(new BorderLayout());
+		leaderBoardHolder.setBackground(new Color(0,0,0,0));
 		JPanel leaderBoardPanel = new JPanel(new GridLayout(2, 1));
-		
 		leaderBoardPanel.setBackground(new Color(0,0,0,0));
 		JLabel leaderBoardLabel = new JLabel("leader board");
 		leaderBoardLabel.setHorizontalAlignment(JLabel.CENTER);
 		leaderBoardLabel.setForeground(Color.decode("#FF6633"));
 		leaderBoardLabel.setFont(new Font("Helvitica", Font.PLAIN, 40));
 		leaderBoardPanel.add(leaderBoardLabel);
-		JLabel leaderBoardList = new JLabel("<html>aloalkjfa    300<br>alolkwe    500<br>auiouwoi    200<br>ojalkm    190<br>nmnnk    100<br>klaiokn    100<br>mnam,a    95<br>kmlkj    93</html>");
+		leaderBoardList = new JLabel("<html><table><tr><td>name1fadfjdkdfja</td><td width=\"50\" /><td>100</td></tr><tr><td>name2</td><td width=\"50\" /><td>10</td></tr></table></html>");
 		leaderBoardList.setHorizontalAlignment(JLabel.CENTER);
 		leaderBoardList.setFont(new Font("Helvitica", Font.PLAIN, 35));
 		leaderBoardPanel.add(leaderBoardList);
-		rightPanel.add(leaderBoardPanel, BorderLayout.CENTER);
+		leaderBoardHolder.add(leaderBoardPanel, BorderLayout.NORTH);
+		rightPanel.add(leaderBoardHolder, BorderLayout.CENTER);
 		
 		JLabel roomCodeLabel = new JLabel("LWSN");
 		roomCodeLabel.setHorizontalAlignment(JLabel.RIGHT);
