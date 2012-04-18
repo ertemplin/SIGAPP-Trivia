@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -29,6 +30,11 @@ public class QuizApp extends Thread
 	final int QUESTION_LENGTH = 15;
 	RoomObserver observer;
 	ArrayList<Player> active; //Current list of players in the game.
+	JLabel questionLabel;
+	JLabel choiceA;
+	JLabel choiceB;
+	JLabel choiceC;
+	JLabel choiceD;
 
 	public void run() {
 		initGame();
@@ -84,17 +90,14 @@ public class QuizApp extends Thread
 	/* Modify the frame to the question screen */
 	public void nextQuestion() {
 		question = new Question();
-		/*String s = question.question;
-		label[4].setText("Question " + count + ". " + s);
-		f.remove(pScore);
-		f.add(pCent, BorderLayout.CENTER);
-		label[0].setText(question.answers[0]);
-		label[1].setText(question.answers[1]);
-		label[2].setText(question.answers[2]);
-		label[3].setText(question.answers[3]);
-		for(int i = 0; i < 4; i++)     
-			pCent.add(label[i]);
-		f.repaint();*/
+		questionLabel.setText(question.question);
+
+		choiceA.setText("a  "+question.answers[0]);
+		choiceB.setText("b  "+question.answers[1]);
+		choiceC.setText("c  "+question.answers[2]);
+		choiceD.setText("d  "+question.answers[3]);
+
+		f.repaint();
 	}
 
 	
@@ -102,6 +105,7 @@ public class QuizApp extends Thread
 		f = new JFrame("Quiz game");
 		f.setLayout(new BorderLayout());
 		
+		// Stuff for the panel on the right
 		JPanel rightPanel = new JPanel(new BorderLayout());
 		rightPanel.setBackground(Color.decode("#33CCFF"));
 		ImageIcon logoIcon = new ImageIcon("src/images/trivial_logo_white.png");
@@ -117,16 +121,49 @@ public class QuizApp extends Thread
 		
 		leaderBoardPanel.setBackground(new Color(0,0,0,0));
 		JLabel leaderBoardLabel = new JLabel("leader board");
+		leaderBoardLabel.setHorizontalAlignment(JLabel.CENTER);
+		leaderBoardLabel.setForeground(Color.decode("#FF6633"));
+		leaderBoardLabel.setFont(new Font("Helvitica", Font.PLAIN, 40));
 		leaderBoardPanel.add(leaderBoardLabel);
-		JLabel leaderBoardList = new JLabel("Name\t300\n");
-		leaderBoardList.setVerticalTextPosition(JLabel.CENTER);
-		leaderBoardPanel.add(leaderBoardList, BorderLayout.NORTH);
-		rightPanel.add(leaderBoardPanel);
+		JLabel leaderBoardList = new JLabel("<html>aloalkjfa    300<br>alolkwe    500<br>auiouwoi    200<br>ojalkm    190<br>nmnnk    100<br>klaiokn    100<br>mnam,a    95<br>kmlkj    93</html>");
+		leaderBoardList.setHorizontalAlignment(JLabel.CENTER);
+		leaderBoardList.setFont(new Font("Helvitica", Font.PLAIN, 35));
+		leaderBoardPanel.add(leaderBoardList);
+		rightPanel.add(leaderBoardPanel, BorderLayout.CENTER);
 		
 		JLabel roomCodeLabel = new JLabel("LWSN");
+		roomCodeLabel.setHorizontalAlignment(JLabel.RIGHT);
+		roomCodeLabel.setForeground(Color.decode("#FF6633"));
+		roomCodeLabel.setFont(new Font("Helvictica", Font.PLAIN, 50));
 		rightPanel.add(roomCodeLabel, BorderLayout.SOUTH);
+		// END stuff for the panel on the right.
+		
+		// Stuff for the main panel
+		JPanel leftPanel = new JPanel(new GridLayout(7,1));
+		leftPanel.setBackground(Color.decode("#bbeeff"));
+		
+		questionLabel = new JLabel("Lorem ipsum dolor sit amet, consectetur adipiscing elit?");
+		questionLabel.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		choiceA = new JLabel("Lorem");
+		choiceA.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		choiceB = new JLabel("Ipsum");
+		choiceB.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		choiceC = new JLabel("Dolor");
+		choiceC.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		choiceD = new JLabel("Amet");
+		choiceD.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		
+		leftPanel.add(questionLabel);
+		leftPanel.add(choiceA);
+		leftPanel.add(choiceB);
+		leftPanel.add(choiceC);
+		leftPanel.add(choiceD);
+		
+		
+		// END stuff for the main panel
 
 		f.add(rightPanel, BorderLayout.EAST);
+		f.add(leftPanel, BorderLayout.CENTER);
 		f.setSize(1200, 1200);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
