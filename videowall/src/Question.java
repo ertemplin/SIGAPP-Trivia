@@ -19,7 +19,7 @@ public class Question
 		{
 			URL oracle = new URL("http://pc.cs.purdue.edu:3000/random");
 			BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
-			
+
 			String s = " ";
 			String inputLine="";
 			System.out.println(inputLine);
@@ -40,7 +40,7 @@ public class Question
 		}
 		catch(Exception e){e.printStackTrace();}
 	}
-	
+
 	private char findCorrect(String[] answers, String answer)
 	{
 		for(int i=0;i<answers.length;i++)
