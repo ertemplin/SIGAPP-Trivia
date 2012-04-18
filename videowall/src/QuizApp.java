@@ -100,12 +100,13 @@ public class QuizApp extends Thread
 		
 		JPanel rightPanel = new JPanel(new BorderLayout());
 		rightPanel.setBackground(Color.decode("#33CCFF"));
-		ImageIcon logoIcon = new ImageIcon("src/images/TrivialLogo.png");
+		ImageIcon logoIcon = new ImageIcon("src/images/trivial_logo_white.png");
 		Image img = logoIcon.getImage();  
-		Image newimg = img.getScaledInstance(200, 190,  java.awt.Image.SCALE_SMOOTH);  
+		Image newimg = img.getScaledInstance(348, 130,  java.awt.Image.SCALE_SMOOTH);  
 		logoIcon = new ImageIcon(newimg);
 		JLabel logo = new JLabel(logoIcon);
 		logo.setBorder(BorderFactory.createEmptyBorder(20, 70, 50, 35));
+		logo.setBackground(Color.WHITE);
 		rightPanel.add(logo, BorderLayout.NORTH);
 		
 		JPanel leaderBoardPanel = new JPanel(new GridLayout(2, 1));
@@ -114,6 +115,7 @@ public class QuizApp extends Thread
 		JLabel leaderBoardLabel = new JLabel("leader board");
 		leaderBoardPanel.add(leaderBoardLabel);
 		JLabel leaderBoardList = new JLabel("Name\t300\n");
+		leaderBoardList.setVerticalTextPosition(JLabel.CENTER);
 		leaderBoardPanel.add(leaderBoardList, BorderLayout.NORTH);
 		rightPanel.add(leaderBoardPanel);
 		
