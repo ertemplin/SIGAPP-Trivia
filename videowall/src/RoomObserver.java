@@ -9,6 +9,7 @@ public class RoomObserver implements Observer
   public String line[];
   public int index;
   public static String ans;
+  public static String userAns;
   public static String location;
   Player user;
   Boolean inList = false;
@@ -30,7 +31,7 @@ public class RoomObserver implements Observer
       
       // If the user just joined, check him in the list.
       if(!(line[1].equals("video-wall"))){
-        if(line[2].equals("accepted")){
+        if(line[0].equals("user:") && line[2].equals("accepted")){
           for(int i = 0; i < app.active.size(); i++){
             //System.out.println(user.name);
             user = app.active.get(i);
@@ -46,17 +47,25 @@ public class RoomObserver implements Observer
         }
         
         // If the answer is a score line, add scores for the user.
-        else{
+        else if(line[0].equals("user:")){
           for(int i = 0; i < app.active.size(); i++){
             user = app.active.get(i);
+            if(user.equals(line[1]))
+              break;
+          }
+          if(user.respond == false){
+            user.respond = true;
             ans = Character.toString(app.getAnswer());
-            //System.out.println(ans);
-            if(line[1].equals(user.name) && line[2].equals(app.getAnswer()))
+            userAns = line[2].toLowerCase();
+            if(userAns.equals(ans)){
+              System.out.println("YOU ARE RIGHT!");
               user.addPoints(5);
+            }
           }
         }
       }
     }
+  
     
     for(int i = 0; i < app.active.size(); i++){
       user = app.active.get(i);
