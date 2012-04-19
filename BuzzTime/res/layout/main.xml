@@ -1,69 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="left"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="10" >
 
     <LinearLayout
-        android:id="@+id/topBox"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:background="#6B8E23" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="#33CCFF">
 
-    <TextView
+        <TextView
+            android:id="@+id/trivial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="TRIVIAL"
+            android:textColor="#FF6633"
+            android:textStyle="bold"
+            android:textSize="50dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/topBox"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="#000000" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
         android:gravity="center"
-        android:text="\?"
-        android:textSize="500dp" />
+        android:background="#000000"
+        android:orientation="vertical"
+        android:weightSum="2" >
 
-    <LinearLayout
-        android:id="@+id/topRightLogo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignRight="@+id/topBox"
-        android:layout_alignTop="@+id/topBox"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
-        android:background="#8B008B" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2" >
 
-    <LinearLayout
-        android:id="@+id/topLeftLogo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignTop="@+id/topBox"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@+id/topRightLogo"
-        android:background="#8B008B" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+        		android:layout_margin="10dp"
+                android:text="a"
+                android:textColor="#FFFFFF"
+                android:textSize="100dp"
+                android:background="@drawable/custombutton" />
 
-    <LinearLayout
-        android:id="@+id/botRightLogo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignBottom="@+id/topBox"
-        android:layout_alignRight="@+id/topRightLogo"
-        android:layout_marginBottom="8dp"
-        android:background="#8B008B" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+        		android:layout_margin="10dp"
+                android:text="b"
+                android:textColor="#FFFFFF"
+                android:textSize="100dp"
+                android:background="@drawable/custombutton"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/botLeftLogo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignBottom="@+id/topBox"
-        android:layout_alignRight="@+id/topLeftLogo"
-        android:layout_marginBottom="8dp"
-        android:background="#8B008B" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="TRIVIAL"
-        android:textColor="#8B008B"
-        android:textSize="30dp" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+        		android:layout_margin="10dp"
+                android:text="c"
+                android:textColor="#FFFFFF"
+                android:textSize="100dp"
+                android:background="@drawable/custombutton" />
 
-</RelativeLayout>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+        		android:layout_margin="10dp"
+                android:text="d"
+                android:textColor="#FFFFFF"
+                android:textSize="100dp"
+                android:background="@drawable/custombutton" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

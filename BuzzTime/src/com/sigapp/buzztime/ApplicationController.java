@@ -32,7 +32,6 @@ public class ApplicationController extends Application {
 		
 		
 		room = new RoomConnection(roomName, new Observer() {
-			@Override
 			public void update(Observable arg0, Object arg1) {
 				Message m = (Message) arg1;
 				Log.d("Incoming message", m.getText());

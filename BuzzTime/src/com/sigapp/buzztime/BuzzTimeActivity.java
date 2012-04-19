@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,10 @@ public class BuzzTimeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Typeface type = Typeface.createFromAsset(getAssets(),"COOLVETI.TTF");
+        
+        TextView name = (TextView)findViewById(R.id.trivial);
+        //name.setTypeface(type);
         
         /*text_uname = (TextView) findViewById(R.id.t_username);
         text_score = (TextView) findViewById(R.id.t_score);

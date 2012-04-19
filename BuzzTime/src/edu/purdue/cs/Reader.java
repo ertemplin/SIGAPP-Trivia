@@ -18,9 +18,7 @@ public class Reader extends Observable implements Runnable {
 		running = false;
 	}
 
-	@Override
 	public void run() {
-
 		while (running) {
 			String text = nc.readMessage();
 			if (text != null) { // TODO null means !running
