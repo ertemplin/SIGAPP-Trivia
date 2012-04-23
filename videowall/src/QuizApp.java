@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,10 +10,13 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import edu.purdue.cs.Message;
 import edu.purdue.cs.RoomConnection;
@@ -27,15 +31,15 @@ public class QuizApp extends Thread
 	long time = 0;
 	String userNow;
 	int count = 1;
-	final int QUESTION_LENGTH = 15;
+	final int QUESTION_LENGTH = 5;
 	RoomObserver observer;
 	ArrayList<Player> active; //Current list of players in the game.
 	Player temp; 
-	JLabel questionLabel;
-	JLabel choiceA;
-	JLabel choiceB;
-	JLabel choiceC;
-	JLabel choiceD;
+	JTextArea questionLabel;
+	JLabel choiceAText;
+	JLabel choiceBText;
+	JLabel choiceCText;
+	JLabel choiceDText;
 	JLabel leaderBoardList;
 
 
@@ -49,6 +53,7 @@ public class QuizApp extends Thread
 					temp.respond = false;
 				}
 				nextQuestion();
+				announceAnswer();
 				announceQuestion();
 				questionStart = true;
 				time = System.currentTimeMillis();
@@ -59,7 +64,7 @@ public class QuizApp extends Thread
 					scoreStart = false;
 					sort(active);
 					updateLeaderboard();
-					announceAnswer();
+					//announceAnswer();
 				}
 				else if(!scoreStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
 					count++;
@@ -99,11 +104,10 @@ public class QuizApp extends Thread
 	public void nextQuestion() {
 		question = new Question();
 		questionLabel.setText(question.question);
-
-		choiceA.setText("a  "+question.answers[0]);
-		choiceB.setText("b  "+question.answers[1]);
-		choiceC.setText("c  "+question.answers[2]);
-		choiceD.setText("d  "+question.answers[3]);
+		choiceAText.setText(question.answers[0]);
+		choiceBText.setText("b  "+question.answers[1]);
+		choiceCText.setText("c  "+question.answers[2]);
+		choiceDText.setText("d  "+question.answers[3]);
 
 		f.repaint();
 	}
@@ -124,7 +128,7 @@ public class QuizApp extends Thread
 
 		// Stuff for the panel on the right
 		JPanel rightPanel = new JPanel(new BorderLayout());
-		rightPanel.setBackground(Color.decode("#33CCFF"));
+		rightPanel.setBackground(Color.decode("#60BAEB"));
 		ImageIcon logoIcon = new ImageIcon("src/images/trivial_logo_white.png");
 		Image img = logoIcon.getImage();  
 		Image newimg = img.getScaledInstance(348, 130,  java.awt.Image.SCALE_SMOOTH);  
@@ -158,25 +162,54 @@ public class QuizApp extends Thread
 		// END stuff for the panel on the right.
 
 		// Stuff for the main panel
-		JPanel leftPanel = new JPanel(new GridLayout(7,1));
+		JPanel leftPanel = new JPanel(new GridLayout(7, 1));
 		leftPanel.setBackground(Color.decode("#bbeeff"));
 
-		questionLabel = new JLabel("Lorem ipsum dolor sit amet, consectetur adipiscing elit?");
-		questionLabel.setFont(new Font("Helvitica", Font.PLAIN, 40));
-		choiceA = new JLabel("Lorem");
-		choiceA.setFont(new Font("Helvitica", Font.PLAIN, 40));
-		choiceB = new JLabel("Ipsum");
-		choiceB.setFont(new Font("Helvitica", Font.PLAIN, 40));
-		choiceC = new JLabel("Dolor");
-		choiceC.setFont(new Font("Helvitica", Font.PLAIN, 40));
-		choiceD = new JLabel("Amet");
-		choiceD.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 50));
+		questionPanel.setBackground(Color.decode("#bbeeff"));
+		JPanel questionLeftBox = new JPanel();
+		questionLeftBox.setBackground(Color.decode("#60BAEB"));
+		questionLeftBox.setPreferredSize(new Dimension(40, 90));
 
-		leftPanel.add(questionLabel);
-		leftPanel.add(choiceA);
-		leftPanel.add(choiceB);
-		leftPanel.add(choiceC);
-		leftPanel.add(choiceD);
+		questionLabel = new JTextArea(2,35);
+		questionLabel.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		questionLabel.setLineWrap(true);
+		questionLabel.setFocusable(false);
+		questionLabel.setBackground(Color.decode("#bbeeff"));
+		questionPanel.add(questionLeftBox);
+		questionPanel.add(questionLabel);
+		
+		JPanel choiceAPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 50));
+		JLabel choiceALabel = new JLabel("  a");
+		choiceALabel.setFont(new Font("Helvitica", Font.PLAIN, 60));
+		choiceALabel.setOpaque(true);
+		choiceALabel.setBackground(Color.decode("#60BAEB"));
+		choiceAText = new JLabel("Lorem");
+		choiceAText.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		choiceAPanel.add(choiceALabel);
+		choiceAPanel.add(choiceAText);
+		
+		JPanel choiceBPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 50));
+		JLabel choiceBLabel = new JLabel("  b");
+		choiceBLabel.setFont(new Font("Helvitica", Font.PLAIN, 60));
+		choiceBLabel.setOpaque(true);
+		choiceBLabel.setBackground(Color.decode("#60BAEB"));
+		choiceBText = new JLabel("Ipsum");
+		choiceBText.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		choiceBPanel.add(choiceBLabel);
+		choiceBPanel.add(choiceBText);
+		
+		choiceCText = new JLabel("Dolor");
+		choiceCText.setFont(new Font("Helvitica", Font.PLAIN, 40));
+		
+		choiceDText = new JLabel("Amet");
+		choiceDText.setFont(new Font("Helvitica", Font.PLAIN, 40));
+
+		leftPanel.add(questionPanel);
+		leftPanel.add(choiceAPanel);
+		leftPanel.add(choiceBText);
+		leftPanel.add(choiceCText);
+		leftPanel.add(choiceDText);
 
 
 		// END stuff for the main panel

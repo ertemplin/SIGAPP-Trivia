@@ -53,9 +53,11 @@ public class RoomObserver implements Observer
 						if(user.equals(line[1]))
 							break;
 					}
+					System.out.println(line[1]);
 					if(user.respond == false){
-						user.respond = true;
 						ans = Character.toString(app.getAnswer());
+						System.out.println(ans);
+						user.respond = true;
 						userAns = line[2].toLowerCase();
 						if(userAns.equals(ans)){
 							System.out.println("YOU ARE RIGHT!");
@@ -69,7 +71,7 @@ public class RoomObserver implements Observer
 
 		for(int i = 0; i < app.active.size(); i++){
 			user = app.active.get(i);
-			System.out.println("User Name: " + user.name + " User Score: " + user.score);
+			//System.out.println("User Name: " + user.name + " User Score: " + user.score);
 		}
 	}
 }
