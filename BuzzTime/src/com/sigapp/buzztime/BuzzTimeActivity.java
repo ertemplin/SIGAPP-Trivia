@@ -31,8 +31,8 @@ public class BuzzTimeActivity extends Activity {
 	
 	 String userName = "" ;
 	 
-	 TextView text_uname;
-	 TextView text_score;
+	 //TextView text_uname;
+	 //TextView text_score;
 	 
 	 ApplicationController controller;
     /** Called when the activity is first created. */
@@ -41,9 +41,9 @@ public class BuzzTimeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Typeface type = Typeface.createFromAsset(getAssets(),"COOLVETI.TTF");
+        //Typeface type = Typeface.createFromAsset(getAssets(),"COOLVETI.TTF");
         
-        TextView name = (TextView)findViewById(R.id.trivial);
+        //TextView name = (TextView)findViewById(R.id.trivial);
         //name.setTypeface(type);
         
         //text_uname = (TextView) findViewById(R.id.t_username);
@@ -93,8 +93,8 @@ public class BuzzTimeActivity extends Activity {
 				//EditText userNameBox = (EditText) layout.findViewById(R.id.unameInput);
 				String userName = nameBox.getText().toString();
         		String roomName = codeBox.getText().toString();
-        		text_uname.setText("User Name:" + " " + userName);
-        		text_score.setText("Score: " + "0");
+        		//text_uname.setText("User Name:" + " " + userName);
+        		//text_score.setText("Score: " + "0");
         		
         		controller = new ApplicationController(userName, roomName, context);
 			}
