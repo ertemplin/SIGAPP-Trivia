@@ -51,6 +51,7 @@ public class RoomObserver implements Observer
 				    //System.out.println(app.active.size());
 					for(int i = 0; i < app.active.size(); i++){
 						user = app.active.get(i);
+						System.out.println("USER: " + user.name);
 						if(user.name.equals(line[1]))
 							break;
 						
