@@ -53,10 +53,10 @@ public class QuizApp extends Thread
 					temp.respond = false;
 				}
 				nextQuestion();
-				announceAnswer();
 				announceQuestion();
 				questionStart = true;
 				time = System.currentTimeMillis();
+				System.out.println("Correct answer is : "+ question.correct);
 			}
 			else {
 				if(scoreStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
