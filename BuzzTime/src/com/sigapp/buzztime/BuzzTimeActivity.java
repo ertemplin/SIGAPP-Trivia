@@ -31,8 +31,8 @@ public class BuzzTimeActivity extends Activity {
 	
 	 String userName = "" ;
 	 
-	 TextView text_uname;
-	 TextView text_score;
+	 //TextView text_uname;
+	 //TextView text_score;
 	 
 	 ApplicationController controller;
     /** Called when the activity is first created. */
@@ -41,13 +41,13 @@ public class BuzzTimeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Typeface type = Typeface.createFromAsset(getAssets(),"COOLVETI.TTF");
+        //Typeface type = Typeface.createFromAsset(getAssets(),"COOLVETI.TTF");
         
-        TextView name = (TextView)findViewById(R.id.trivial);
+        //TextView name = (TextView)findViewById(R.id.trivial);
         //name.setTypeface(type);
         
-        /*text_uname = (TextView) findViewById(R.id.t_username);
-        text_score = (TextView) findViewById(R.id.t_score);
+        //text_uname = (TextView) findViewById(R.id.t_username);
+        //text_score = (TextView) findViewById(R.id.t_score);
         
         Button choiceA = (Button) findViewById(R.id.choiceA);
         Button choiceB = (Button) findViewById(R.id.choiceB);
@@ -55,25 +55,21 @@ public class BuzzTimeActivity extends Activity {
         Button choiceD = (Button) findViewById(R.id.choiceD);
         
         choiceA.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View arg0) {
 				controller.sendAnswer('A');
 			}
         });
         choiceB.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View arg0) {
 				controller.sendAnswer('B');
 			}
         });
         choiceC.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View arg0) {
 				controller.sendAnswer('C');
 			}
         });
         choiceD.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View arg0) {
 				controller.sendAnswer('D');
 			}
@@ -93,13 +89,12 @@ public class BuzzTimeActivity extends Activity {
     	final EditText codeBox = (EditText) layout.findViewById(R.id.codeInput);
     	final Context context = this.getApplicationContext();
     	alertDialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//EditText userNameBox = (EditText) layout.findViewById(R.id.unameInput);
 				String userName = nameBox.getText().toString();
         		String roomName = codeBox.getText().toString();
-        		text_uname.setText("User Name:" + " " + userName);
-        		text_score.setText("Score: " + "0");
+        		//text_uname.setText("User Name:" + " " + userName);
+        		//text_score.setText("Score: " + "0");
         		
         		controller = new ApplicationController(userName, roomName, context);
 			}
@@ -110,7 +105,7 @@ public class BuzzTimeActivity extends Activity {
     	
     	AlertDialog joinGameDialog = alertDialogBuilder.create();
 
-		joinGameDialog.show();*/
+		joinGameDialog.show();
     }
     
 }
