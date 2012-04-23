@@ -21,7 +21,6 @@
             android:layout_marginLeft="10dp"
             android:text="TRIVIAL"
             android:textColor="#FF6633"
-            android:textStyle="bold"
             android:textSize="50dp" />
     </LinearLayout>
 
@@ -52,6 +51,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
         		android:layout_margin="10dp"
+        		android:gravity="center"
                 android:text="a"
                 android:textColor="#FFFFFF"
                 android:textSize="100dp"
@@ -62,6 +62,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
         		android:layout_margin="10dp"
+        		android:gravity="center"
                 android:text="b"
                 android:textColor="#FFFFFF"
                 android:textSize="100dp"
@@ -80,6 +81,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
         		android:layout_margin="10dp"
+        		android:gravity="center"
                 android:text="c"
                 android:textColor="#FFFFFF"
                 android:textSize="100dp"
@@ -90,6 +92,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
         		android:layout_margin="10dp"
+        		android:gravity="center"
                 android:text="d"
                 android:textColor="#FFFFFF"
                 android:textSize="100dp"
