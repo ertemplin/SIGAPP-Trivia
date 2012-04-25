@@ -2,7 +2,6 @@ package com.sigapp.buzztime;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import android.app.Application;
 import android.content.Context;
 import android.telephony.TelephonyManager;
@@ -20,22 +19,21 @@ public class ApplicationController extends Application {
 	
 	private char lastAnswer;
 	
-	public ApplicationController(String userName, String roomName, Context c) {
-		// Get a unique id for the phone
+	public ApplicationController(String userName, String roomName, final BuzzTimeActivity c) {
 		TelephonyManager tManager = (TelephonyManager)c.getSystemService(Context.TELEPHONY_SERVICE);
 		String uid = tManager.getDeviceId();
 		
-		// Set static variables
 		this.userName = userName;
 		this.roomName = roomName;
 		this.uid = uid;
 		
-		
 		room = new RoomConnection(roomName, new Observer() {
 			public void update(Observable arg0, Object arg1) {
 				Message m = (Message) arg1;
+				String message = m.getText();
+				//if(message.contains("starting new question"));
+					//c.enableButtons(true);
 				Log.d("Incoming message", m.getText());
-				
 			}
 		});
 	}
@@ -45,5 +43,4 @@ public class ApplicationController extends Application {
 		Message toSend = new Message("user: "+ApplicationController.userName+" "+answer);
 		room.sendMessage(toSend);
 	}
-	
 }

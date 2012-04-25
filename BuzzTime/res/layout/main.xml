@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dp"
             android:text="TRIVIAL"
             android:textColor="#FF6633"
-            android:textSize="50dp" />
+            android:textSize="50dp"/>
         
         <ImageView
             android:src="@drawable/logo_corner"
