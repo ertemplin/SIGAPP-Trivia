@@ -37,6 +37,12 @@ public class ApplicationController extends Application {
 							c.enableButtons(true);
 						}
 					});
+				} else if(message.contains("question end")) {
+					c.runOnUiThread(new Runnable() {
+						public void run() {
+							c.enableButtons(false);
+						}
+					});
 				}
 				Log.d("Incoming message", m.getText());
 			}
