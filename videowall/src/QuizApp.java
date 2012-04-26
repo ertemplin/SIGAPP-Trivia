@@ -10,12 +10,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
 import edu.purdue.cs.Message;
@@ -45,6 +44,8 @@ public class QuizApp extends Thread
 	JLabel choiceDText;
 	JLabel choiceDLabel;
 	JLabel leaderBoardList;
+	JProgressBar progressBar;
+	JLabel timeLeftLabel;
 	Color orangeColor = Color.decode("#ff6633");
 	Color blueColor = Color.decode("#60baeb");
 
@@ -68,7 +69,6 @@ public class QuizApp extends Thread
 				if(scoreStart && System.currentTimeMillis()-time >= QUESTION_LENGTH * 1000) {
 					questionStart = false;
 					scoreStart = false;
-					sort(active);
 					choiceALabel.setBackground(blueColor);
 					choiceBLabel.setBackground(blueColor);
 					choiceCLabel.setBackground(blueColor);
@@ -95,11 +95,19 @@ public class QuizApp extends Thread
 					}
 					announceAnswer();
 					updateLeaderboard();
+					f.repaint();
 					scoreStart = true;
 					time = System.currentTimeMillis();
 				}
 				else if(System.currentTimeMillis()-time < QUESTION_LENGTH * 1000) {
-					//label[5].setText(Long.toString(QUESTION_LENGTH-(System.currentTimeMillis()-time)/1000) + " second(s) left..");
+					if(!scoreStart) {
+						timeLeftLabel.setText(Long.toString(QUESTION_LENGTH-(System.currentTimeMillis()-time)/1000) + " secs");
+						int progressBarValue = (int) (((System.currentTimeMillis()-time)/QUESTION_LENGTH)/10);
+						progressBar.setValue(progressBarValue);
+					} else {
+						timeLeftLabel.setText("0 secs");
+						progressBar.setValue(100);
+					}
 				}
 			}
 			//TODO: Check for people joining and then add them to the leaderboard/check if a phone sends in an answer
@@ -119,7 +127,7 @@ public class QuizApp extends Thread
 	}
 
 	private void sort(ArrayList<Player> list) {
-		Collections.sort(list,new Comparator<Player>() {public int compare(Player player, Player otherPlayer) {return (player.score > otherPlayer.score) ? 1 : -1;}});
+		Collections.sort(list,new Comparator<Player>() {public int compare(Player player, Player otherPlayer) {return (player.score < otherPlayer.score) ? 1 : -1;}});
 	}
 
 	public char getAnswer(){
@@ -139,6 +147,8 @@ public class QuizApp extends Thread
 	}
 
 	public void updateLeaderboard() {
+		sort(active);
+		
 		String toPutOnLeaderboard = "<html><table>";
 		for(int i = 0; i<active.size(); i++) {
 			toPutOnLeaderboard += "<tr><td>" +active.get(i).name + "</td><td width=\"50\" /><td>" + active.get(i).score + "</td></tr>";
@@ -184,6 +194,7 @@ public class QuizApp extends Thread
 		roomCodeLabel.setHorizontalAlignment(JLabel.RIGHT);
 		roomCodeLabel.setForeground(Color.decode("#FF6633"));
 		roomCodeLabel.setFont(new Font("Helvictica", Font.PLAIN, 50));
+		roomCodeLabel.setBorder(BorderFactory.createEmptyBorder(0,0,30,30));
 		rightPanel.add(roomCodeLabel, BorderLayout.SOUTH);
 		// END stuff for the panel on the right.
 
@@ -259,11 +270,48 @@ public class QuizApp extends Thread
 		choiceDPanel.add(choiceDLabel);
 		choiceDPanel.add(choiceDText);
 
+		JPanel timerPanel = new JPanel(new GridLayout(2, 1));
+		timerPanel.setOpaque(false);
+		JPanel timerLabelPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		timerLabelPanel.setOpaque(false);
+		timeLeftLabel = new JLabel("10 secs");
+		timeLeftLabel.setFont(new Font("Helvitica", Font.PLAIN, 35));
+		timeLeftLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,160));
+		timerLabelPanel.add(timeLeftLabel);
+		JPanel timerContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		timerContainer.setOpaque(false);
+		progressBar = new JProgressBar();
+		progressBar.setBackground(orangeColor);
+		progressBar.setForeground(blueColor);
+		progressBar.setPreferredSize(new Dimension(1300, 60));
+		progressBar.setValue(75);
+		timerContainer.add(progressBar);
+		timerPanel.add(timerLabelPanel);
+		timerPanel.add(timerContainer);
+		
+		JPanel qrCodePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		qrCodePanel.setOpaque(false);
+		ImageIcon qrCodeIcon = new ImageIcon("src/images/qrCode.png");
+		Image qrImg = qrCodeIcon.getImage();  
+		Image newQrImg = qrImg.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);  
+		qrCodeIcon = new ImageIcon(newQrImg);
+		JLabel qrCode = new JLabel(qrCodeIcon);
+		JLabel qrCodeText = new JLabel("Scan to play!");
+		qrCodeText.setFont(new Font("Helvitica", Font.PLAIN, 35));
+		qrCodeText.setForeground(orangeColor);
+		qrCodeText.setBorder(BorderFactory.createEmptyBorder(65, 10, 0, 0));
+		qrCodePanel.add(qrCode);
+		qrCodePanel.add(qrCodeText);
+		
+		
+		
 		leftPanel.add(questionPanel);
 		leftPanel.add(choiceAPanel);
 		leftPanel.add(choiceBPanel);
 		leftPanel.add(choiceCPanel);
 		leftPanel.add(choiceDPanel);
+		leftPanel.add(timerPanel);
+		leftPanel.add(qrCodePanel);
 
 
 		// END stuff for the main panel
