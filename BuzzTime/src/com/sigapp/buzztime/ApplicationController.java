@@ -31,8 +31,13 @@ public class ApplicationController extends Application {
 			public void update(Observable arg0, Object arg1) {
 				Message m = (Message) arg1;
 				String message = m.getText();
-				//if(message.contains("starting new question"));
-					//c.enableButtons(true);
+				if(message.contains("starting new question")) {
+					c.runOnUiThread(new Runnable() {
+						public void run() {
+							c.enableButtons(true);
+						}
+					});
+				}
 				Log.d("Incoming message", m.getText());
 			}
 		});

@@ -71,7 +71,7 @@ public class BuzzTimeActivity extends Activity {
 	}
 	
 	public void enableButtons(boolean state) {
-		if(state) {
+		if(!state) {
 			choiceA.setBackgroundColor(disabled);
 			choiceB.setBackgroundColor(disabled);
 			choiceC.setBackgroundColor(disabled);
