@@ -30,7 +30,7 @@ public class QuizApp extends Thread
 	long time = 0;
 	String userNow;
 	int count = 1;
-	final int QUESTION_LENGTH = 5;
+	final int QUESTION_LENGTH = 10;
 	RoomObserver observer;
 	ArrayList<Player> active; //Current list of players in the game.
 	Player temp; 
